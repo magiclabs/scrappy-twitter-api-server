@@ -26,7 +26,7 @@ This Go server is where all of the Scrappy Twitter API requests are handled. Onc
 1. `git clone https://github.com/seemcat/scrappy-twitter-api-server.git`
 2. `cd scrappy-twitter-api-server`
 3. `mv .env.example .env`
-    Paste the Test Secret Key you just copied as the value for `MAGIC_TEST_SECRET_KEY` in .env:
+4. Paste the Test Secret Key you just copied as the value for `MAGIC_TEST_SECRET_KEY` in .env:
     ```
     MAGIC_TEST_SECRET_KEY=sk_test_XXXXXXXXXX
     ```
