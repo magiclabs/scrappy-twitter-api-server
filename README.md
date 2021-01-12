@@ -35,6 +35,9 @@ This Go server is where all of the Scrappy Twitter API requests are handled. Onc
 ## Test with Postman
 1. Import the DEV version of the Scrappy Twitter API Postman Collection:
     [![Run in Postman](https://run.pstmn.io/button.svg)](https://god.postman.co/run-collection/13995d5adf65c3ca5c88)
-2. Generate an access token on the Client side. (Click [here](https://github.com/seemcat/scrappy-twitter-api-client) to set up and run the client side.)
+2. Generate an access token on the Client side. 
+    **Note**: You have two options to do this. You could either click [here](https://github.com/seemcat/scrappy-twitter-api-client) to spin up your own local client and generate the access token there. 
+    
+    OR you could visit the **Live** client side [here](https://scrappy-twitter-api-client.vercel.app/) and immediately generate your access token there.
 3. Pass the access token as a Bearer token into the Postman Collection’s HTTP Authorization request header.
 4. Send your requests to the Scrappy Twitter API! 🎉
