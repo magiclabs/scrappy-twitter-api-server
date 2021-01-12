@@ -50,8 +50,7 @@ func main() {
 
 	// Tweets array will be accessible by all .go files
 	Tweets = []Tweet{
-		Tweet{ID: "1", Copy: "This is our first default tweet!", Author: "Maricris"},
-		Tweet{ID: "2", Copy: "This is our second default tweet!", Author: "Kona"},
+		Tweet{ID: "1", Copy: "This is our first default tweet!", Author: "maricris@magic.link"},
 	}
 
 	handleRequests()

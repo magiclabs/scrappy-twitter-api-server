@@ -60,18 +60,21 @@ func returnSingleTweet(w http.ResponseWriter, r *http.Request) {
 // Creates a tweet ✨
 func createATweet(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Endpoint Hit: createATweet")
-	isAuthenticated := isAuthenticated(w, r)
 
-	if isAuthenticated {
+	author := getAuthor(w, r)
+
+	// Ensure the author of the tweet is authenticated
+	if len(author) > 0 {
 
 		/*
 			Get the body of our POST request
 			Unmarshal this into a new Tweet struct
-			Append this to our Tweets array.
+			Add the authenticated author to the tweet
 		*/
 		reqBody, _ := ioutil.ReadAll(r.Body)
 		var tweet Tweet
 		json.Unmarshal(reqBody, &tweet)
+		tweet.Author = author
 
 		/*
 			Update our global Tweets array to include
@@ -88,12 +91,13 @@ func createATweet(w http.ResponseWriter, r *http.Request) {
 func deleteATweet(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Endpoint Hit: deleteATweet")
 
-	isAuthenticated := isAuthenticated(w, r)
+	author := getAuthor(w, r)
 
 	// Parse the path parameters
 	vars := mux.Vars(r)
 
-	if isAuthenticated {
+	// Ensure the author of the tweet is authenticated
+	if len(author) > 0 {
 		// Extract the `id` of the tweet we wish to delete
 		id := vars["id"]
 
@@ -101,27 +105,32 @@ func deleteATweet(w http.ResponseWriter, r *http.Request) {
 		for index, tweet := range Tweets {
 
 			/*
-				Checks whether or not our id path
+				Checks whether or not our id and author path
 				parameter matches one of our tweets.
 			*/
-			if tweet.ID == id {
+			if (tweet.ID == id) && (tweet.Author == author) {
 
 				// Updates our Tweets array to remove the tweet
 				Tweets = append(Tweets[:index], Tweets[index+1:]...)
+				w.Write([]byte("Yay! Tweet has been DELETED."))
+				return
 			}
 		}
-
-		w.Write([]byte("Yay! Tweet has been DELETED."))
 	}
+
+	w.Write([]byte("Ooh. You can't delete someone else's tweet."))
 }
 
-// Ensures the access token sent by the client is valid ✨
-func isAuthenticated(w http.ResponseWriter, r *http.Request) bool {
+/*
+Ensures the access token sent by the client is valid
+Returns the tweet author's email address ✨
+*/
+func getAuthor(w http.ResponseWriter, r *http.Request) string {
 
 	// Check whether or not access token exists in HTTP Header Request
 	if !strings.HasPrefix(r.Header.Get("Authorization"), authBearer) {
 		fmt.Fprintf(w, "Bearer token is required")
-		return false
+		return ""
 	}
 
 	// Retrieve access token from HTTP Header Request
@@ -130,18 +139,31 @@ func isAuthenticated(w http.ResponseWriter, r *http.Request) bool {
 	// Check whether or not access token is an empty string
 	if accessToken == "" {
 		fmt.Fprintf(w, "Access token is required")
-		return false
+		return ""
 	}
 
-	// Create a Token instance to validate access token
-	_, err := token.NewToken(accessToken)
+	// Create a Token instance to interact with the DID token
+	tk, err := token.NewToken(accessToken)
 	if err != nil {
 		fmt.Fprintf(w, "Malformed access token error: %s", err.Error())
 		w.Write([]byte(err.Error()))
-		return false
+		return ""
 	}
 
-	return true
+	// Validate the Token instance before using it
+	if err := tk.Validate(); err != nil {
+		fmt.Fprintf(w, "DID token failed validation: %s", err.Error())
+		return ""
+	}
+
+	// Get the the user's information
+	userInfo, err := magicSDK.User.GetMetadataByIssuer(tk.GetIssuer())
+	if err != nil {
+		fmt.Fprintf(w, "Error when calling GetMetadataByIssuer: %s", err.Error())
+		return ""
+	}
+
+	return userInfo.Email
 }
 
 // Acknowledges authenticated user upon login ✨
@@ -176,7 +198,7 @@ func logIn(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// What does NewToken() do?
+	// Create a Token instance to validate access token
 	tk, err := token.NewToken(accessToken)
 	if err != nil {
 		fmt.Fprintf(w, "Malformed access token error: %s", err.Error())
