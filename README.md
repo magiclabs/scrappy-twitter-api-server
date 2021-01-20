@@ -39,5 +39,5 @@ This Go server is where all of the Scrappy Twitter API requests are handled. Onc
    
    Click [here](https://github.com/magiclabs/scrappy-twitter-api-client) to spin up your own local client and generate the DID token there.
    
-3. Pass the DID token as a Bearer token into the Postman Collection’s HTTP Authorization request header.
+3. Pass the DID token as a Bearer token into the Postman Collection’s HTTP Authorization request header and click **save**.
 4. Send your requests to the Scrappy Twitter API! 🎉
