@@ -36,9 +36,6 @@ This Go server is where all of the Scrappy Twitter API requests are handled. Onc
 1. Import the DEV version of the Scrappy Twitter API Postman Collection:
     [![Run in Postman](https://run.pstmn.io/button.svg)](https://god.postman.co/run-collection/1aa913713995cb16bb70)
 2. Generate a DID token on the Client side. 
-    
-    **Note**: You have two options to do this. You could either click [here](https://github.com/seemcat/scrappy-twitter-api-client) to spin up your own local client and generate the DID token there. 
-    
-    OR you could visit the **Live** client side [here](https://scrappy-twitter-api-client-xi.vercel.app/) and immediately generate your DID token there.
+   Click [here](https://github.com/seemcat/scrappy-twitter-api-client) to spin up your own local client and generate the DID token there.
 3. Pass the DID token as a Bearer token into the Postman Collection’s HTTP Authorization request header.
 4. Send your requests to the Scrappy Twitter API! 🎉
