@@ -7,8 +7,8 @@ This Go server is where all of the Scrappy Twitter API requests are handled. Onc
 # API Routes
 - POST a tweet (protected): http://localhost:8080/tweet 
 - GET all tweets (unprotected): http://localhost:8080/tweets 
-- GET a single tweet (unprotected): http://localhost:8080/tweets/1 
-- DELETE a tweet (protected): http://localhost:8080/tweets/2
+- GET a single tweet (unprotected): http://localhost:8080/tweet/1 
+- DELETE a tweet (protected): http://localhost:8080/tweet/2
 
 # Noteworthy Packages
 - [gorilla/handlers](https://github.com/gorilla/handlers): Lets us enable CORS.
