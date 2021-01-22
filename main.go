@@ -21,16 +21,16 @@ func handleRequests() {
 	myRouter.HandleFunc("/tweets", returnAllTweets)
 
 	// Delete a tweet ✨
-	myRouter.HandleFunc("/tweets/{id}", checkBearerToken(deleteATweet)).Methods("DELETE")
+	myRouter.HandleFunc("/tweet/{id}", checkBearerToken(deleteATweet)).Methods("DELETE")
 
 	// Return a single Tweet ✨
-	myRouter.HandleFunc("/tweets/{id}", returnSingleTweet)
+	myRouter.HandleFunc("/tweet/{id}", returnSingleTweet)
 
 	// Create a tweet ✨
 	myRouter.HandleFunc("/tweet", checkBearerToken(createATweet)).Methods("POST")
 
 	// Save the user, if they're authenticated ✨
-	myRouter.HandleFunc("/login", checkBearerToken(logIn)).Methods("POST")
+	myRouter.HandleFunc("/save-user-info", checkBearerToken(saveUserInfo)).Methods("POST")
 
 	port := os.Getenv("PORT")
 	if port == "" {

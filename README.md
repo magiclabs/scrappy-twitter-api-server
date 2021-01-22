@@ -10,7 +10,7 @@ This Go server is where all of the Scrappy Twitter API requests are handled. Onc
 - GET a single tweet (unprotected): http://localhost:8080/tweets/1 
 - DELETE a tweet (protected): http://localhost:8080/tweets/2
 
-# Noteworthy Packages
+# Noteworthy Dependencies
 - [gorilla/handlers](https://github.com/gorilla/handlers): Lets us enable CORS.
 - [gorilla/mux](https://github.com/gorilla/mux): Lets us build a powerful HTTP router and URL matcher.
 - [magic-admin-go/client](https://docs.magic.link/admin-sdk/go/get-started#creating-an-sdk-client-instance): Lets us instantiate the Magic SDK for Go.

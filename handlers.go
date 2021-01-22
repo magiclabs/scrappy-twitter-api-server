@@ -128,7 +128,6 @@ Ensures the Decentralised ID Token (DIDT) sent by the client is valid
 Saves the author's user info in context values ✨
 */
 func checkBearerToken(next httpHandlerFunc) httpHandlerFunc {
-	fmt.Println("Middleware Hit: checkBearerToken")
 	return func(res http.ResponseWriter, req *http.Request) {
 
 		// Check whether or not DIDT exists in HTTP Header Request
@@ -168,9 +167,9 @@ func checkBearerToken(next httpHandlerFunc) httpHandlerFunc {
 	}
 }
 
-// Acknowledges authenticated user upon login ✨
-func logIn(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Endpoint Hit: logIn")
+// Save authenticated user info once they login from the client side ✨
+func saveUserInfo(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Endpoint Hit: save-user-info")
 
 	// Get the authenticated author's info from context values
 	userInfo := r.Context().Value(userInfoKey)
