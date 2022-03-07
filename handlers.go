@@ -27,7 +27,7 @@ const authBearer = "Bearer"
 var err = godotenv.Load(".env")
 
 // Get env variables
-var magicSecretKey = os.Getenv("MAGIC_TEST_SECRET_KEY")
+var magicSecretKey = os.Getenv("MAGIC_SECRET_KEY")
 
 // Instantiate Magic ✨
 var magicSDK = client.New(magicSecretKey, magic.NewDefaultClient())

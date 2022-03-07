@@ -20,15 +20,15 @@ This Go server is where all of the Scrappy Twitter API requests are handled. Onc
 ## Magic Setup
 1. Sign up for an account on [Magic](https://magic.link/).
 2. Create an app.
-3. Copy your app's Test Secret Key (you'll need it soon).
+3. Copy your app's Live Secret Key (you'll need it soon).
 
 ## Server Setup
 1. `git clone https://github.com/seemcat/scrappy-twitter-api-server.git`
 2. `cd scrappy-twitter-api-server`
 3. `mv .env.example .env`
-4. Paste the Test Secret Key you just copied as the value for `MAGIC_TEST_SECRET_KEY` in .env:
+4. Paste the Live Secret Key you just copied as the value for `MAGIC_SECRET_KEY` in .env:
     ```
-    MAGIC_TEST_SECRET_KEY=sk_test_XXXXXXXXXX
+    MAGIC_SECRET_KEY=sk_XXXXXXXXXX
     ```
 4. Run all .go files with `go run .`
 
